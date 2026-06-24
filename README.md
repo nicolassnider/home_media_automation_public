@@ -4,7 +4,7 @@
 
 Your personal, private, and sustainable smart home hub.
 
-![GupCheck Cover](public/homemediaautomation-cover.png)
+![Home Media Automation Cover](homemediaautomation-cover.png)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
