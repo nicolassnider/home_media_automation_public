@@ -1,138 +1,106 @@
-<div align="center">
-  <h1>🏡 Home Media & Automation Center</h1>
-  <p>A cost-effective, secure, and professional smart home hub built on legacy hardware.</p>
+# Home Media Automation
 
-  [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-  [![Project Status](https://img.shields.io/badge/Status-Implementation-green.svg)]()
-  [![Docker](https://img.shields.io/badge/Docker-Supported-2496ED.svg?logo=docker)]()
-  [![Home Assistant](https://img.shields.io/badge/Home_Assistant-Ready-41BDF5.svg?logo=home-assistant)]()
-</div>
+## 🏡 Home Media & Automation Center
+
+Your personal, private, and sustainable smart home hub.
+
+![GupCheck Cover](public/homemediaautomation-cover.png)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
 **Author:** Nicolas Snider  
-**Last Updated:** June 16, 2026  
 **Location:** Mexico
 
-## 📖 Overview
+## 📖 Welcome
 
-The **Home Media & Automation Center** project revitalizes legacy hardware (such as Intel Core 2 Duo systems) into a fully functional, highly efficient smart home hub. By utilizing a containerized architecture with Docker and lightweight open-source software, this project delivers a robust environment for media streaming, IoT device management, and advanced home automation without the need for expensive modern hardware.
+Welcome to the **Home Media & Automation Center**. This project is all about giving old computers a second life by turning them into a powerful, private, and secure hub for your home.
 
-## ✨ Key Features
+Instead of relying on expensive cloud subscriptions or buying brand-new equipment, this system lets you manage your smart devices, stream your own media, and keep your data completely private—all running smoothly on recycled hardware.
 
-- **Hardware Upcycling:** Maximize the lifespan and utility of older processors.
-- **Containerized Architecture:** Fully isolated services using Docker and Docker Compose.
-- **Media Streaming:** Centralized library management and playback via Plex.
-- **Smart Home Automation:** Robust local control of IoT devices using Home Assistant and Node-RED.
-- **Secure by Design:** Implementation of least-privilege containers, isolated networks, and reverse proxy routing.
-- **Metrics & Monitoring:** Real-time system health tracking with Prometheus and Grafana.
+## ✨ What does it do?
 
----
-
-## 🛠️ Technology Stack
-
-| Category | Technologies Used |
-| :--- | :--- |
-| **OS Environment** | Ubuntu Server 22.04 LTS / Debian 12 |
-| **Containerization** | Docker, Docker Compose, Portainer |
-| **Media Server** | Plex Media Server, Radarr, Sonarr, Prowlarr |
-| **Automation** | Home Assistant, Node-RED |
-| **Networking & Proxy** | Nginx, Tailscale (VPN) |
-| **IoT Messaging** | Eclipse Mosquitto (MQTT) |
-| **Monitoring** | Prometheus, Grafana, Node Exporter, Dozzle |
+- 🎬 **Your Personal "Netflix":** Organizes and streams your personal movies and TV shows to any screen in your house (powered by Plex).
+- 💡 **Smart Home Control:** Connects and automates smart lights, sensors, and cameras in one unified dashboard, without needing external cloud services.
+- ♻️ **Eco-Friendly & Sustainable:** Breathes new life into older, retired computers (like Intel Core 2 Duo systems), saving them from the landfill.
+- 🔒 **Private & Secure:** Your data stays in your home. The system is designed with strict security measures to ensure everything is locked down and safe from external threats.
+- 📊 **Health Monitoring:** Keeps an eye on its own performance, displaying beautiful real-time dashboards of the system's health.
 
 ---
 
-## 🌐 Network Architecture
+## 🛠️ For the Tech-Curious (Under the Hood)
 
-The system utilizes an internal Docker bridge network (`home-network`) to securely route traffic, minimizing host network exposure. External access is securely managed through an Nginx reverse proxy.
+While the system is easy to use, it's built on a robust, professional-grade technology stack. It uses a **containerized architecture** to ensure stability, security, and easy updates.
+
+- **The Brain:** Ubuntu Server / Debian
+- **The Engine:** Docker & Docker Compose (keeps everything neatly separated)
+- **Home Automation:** Home Assistant & Node-RED
+- **Media Streaming:** Plex Media Server
+- **Security & Networking:** Nginx (Proxy) & Tailscale (VPN)
+- **System Monitoring:** Grafana & Prometheus
+
+### How it connects
+
+At a high level, the system acts as a secure bridge between the internet, your smart devices, and your TVs. It carefully manages what goes in and out, ensuring maximum privacy.
 
 ```mermaid
 graph TD
-    Internet((Internet)) -->|HTTPS :443| Router[Router / Firewall]
-    Router -->|Port Forward 443| Nginx[Nginx Reverse Proxy]
-    Router -->|Tailscale VPN| VPN[Tailscale Client]
+    Internet((Internet)) -->|Secure Connection| Nginx[Security Gateway / Proxy]
     
-    subgraph "Docker Host (Legacy Hardware)"
-        Nginx -->|Internal| HA[Home Assistant :8123]
-        Nginx -->|Internal| NR[Node-RED :1880]
-        Nginx -->|Internal| Grafana[Grafana :3000]
-        Nginx -->|Internal| Portainer[Portainer :9000]
+    subgraph "The Hub (Recycled Computer)"
+        Nginx --> HA[Smart Home Brain]
+        Nginx --> Dashboards[Monitoring Dashboards]
         
-        HA -.->|MQTT| Mosquitto[Mosquitto Broker]
-        NR -.->|MQTT| Mosquitto
+        HA -.->|Local Network| Comm[Internal Messaging]
         
-        Plex[Plex Media Server] -->|Host Port 32400| Router
+        Plex[Media Server] --> Router
     end
 
-    subgraph "Local Network"
-        Mosquitto -.->|IoT Traffic| SmartDevices[Smart Lights, Sensors, Cameras]
-        Router --> TVs[Smart TVs & Clients]
+    subgraph "Your Home"
+        Comm -.-> SmartDevices[Smart Lights, Sensors, Cameras]
+        Router --> TVs[Smart TVs, Phones, Tablets]
     end
 ```
 
 ---
 
-## 💻 Hardware Requirements
+## 🚀 Want to try it out?
 
-### Minimum Specifications
-- **Processor:** Intel Core 2 Duo or equivalent
-- **Memory:** 4GB RAM (2GB absolute minimum)
-- **Storage:** 500GB HDD (SSD highly recommended for the OS)
-- **Network:** Gigabit Ethernet
+If you have an old computer lying around and want to set this up yourself, the process is streamlined into automated scripts.
 
-### Recommended Upgrades
-- SSD for OS and Docker volumes to significantly improve I/O performance.
-- Upgrading to 8GB RAM to comfortably run Prometheus, Grafana, and media indexers concurrently.
+### What you need
 
----
+- An older computer (Intel Core 2 Duo or better, 4GB RAM)
+- A hard drive (SSD recommended for speed)
+- A wired internet connection
 
-## 🔒 Security Best Practices
+### Quick Start
 
-Security is a primary focus of this architecture. The following guidelines are strictly enforced:
+1. **Prepare the system:**
 
-1. **Docker Container Security:**
-   - **Least Privilege:** Services run without `privileged: true` unless hardware-level access (like a Zigbee USB dongle) is strictly required.
-   - **Network Isolation:** Containers communicate via isolated Docker networks instead of `network_mode: host` whenever possible.
-   - **Restricted Socket Access:** Containers requiring Docker daemon access (like Dozzle) are mounted as read-only (`:ro`).
-2. **Infrastructure:**
-   - Hardened SSH access (Key-based authentication, non-default ports).
-   - Local firewall rules (UFW) enforcing strict ingress policies.
-   - Credentials injected via `.env` files and standard input streams (e.g., secure MQTT password generation).
+   ```bash
+   sudo ./scripts/01-system-prep.sh
+   ```
 
----
+2. **Install the engine (Docker):**
 
-## 🚀 Getting Started
+   ```bash
+   sudo ./scripts/02-install-docker.sh
+   ```
 
-### 1. System Preparation
-Run the preparation script to update the OS, install essential tools, and configure the firewall:
-```bash
-sudo ./scripts/01-system-prep.sh
-```
+3. **Launch the services:**
 
-### 2. Install Docker
-Install the Docker engine and configure user group permissions:
-```bash
-sudo ./scripts/02-install-docker.sh
-```
-
-### 3. Deploy Services
-Ensure you have created your `.env` file in the `docker` directory. Then, run the deployment script which handles secure MQTT password creation and container startup:
-```bash
-./scripts/03-setup-services.sh
-```
+   ```bash
+   ./scripts/03-setup-services.sh
+   ```
 
 ---
 
-## 🤝 Contributing
+## 🤝 Let's Connect
 
-While this is primarily a personal homelab project, suggestions, optimizations, and issue reports are always welcome.
+I built this project to showcase how modern software engineering practices can be applied to everyday problems, creating value while being environmentally conscious.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+If you are a recruiter, a potential client, or just a tech enthusiast, I'd love to connect! Feel free to explore the code or reach out.
 
 ## 📄 License
 
